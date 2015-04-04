@@ -34,7 +34,7 @@ void MarioGame::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ball"));
 	mario_.setFrames(marioNS::MARIO_START_FRAME, marioNS::MARIO_END_FRAME);
 	mario_.setCurrentFrame(marioNS::MARIO_START_FRAME);
-
+	mario_.setScale(0.5);
 	return;
 }
 
