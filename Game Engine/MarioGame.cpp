@@ -27,6 +27,7 @@ void MarioGame::initialize(HWND hwnd)
 	// background_
 	if (!background_.initialize(graphics, 0, 0, 0, &backgroundTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	background_.setScale(GAME_HEIGHT * 1.0 / background_.getHeight());
 
 	// mario_
 	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
