@@ -29,8 +29,13 @@ void MarioGame::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
 
 	// mario_
-	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, 0, &marioTexture_))
+	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ball"));
+	mario_.setFrames(marioNS::MARIO_START_FRAME, marioNS::MARIO_END_FRAME);
+	mario_.setCurrentFrame(marioNS::MARIO_START_FRAME);
+	
+
+	int number = marioNS::HEIGHT;
 
 	return;
 }
@@ -46,24 +51,25 @@ void MarioGame::update()      // must override pure virtual from Game
 		mario_.setX(mario_.getX() - marioNS::SPEED*frameTime);
 		state = WALKING;
 		direction = LEFT;
-		mario_.setFrames(1, 3);
+		mario_.setFrames(0, 5);
 	}
 	else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0))
 	{
 		mario_.setX(mario_.getX() + marioNS::SPEED*frameTime);
 		state = WALKING;
 		direction = RIGHT;
-		mario_.setFrames(1, 3);
+		mario_.setFrames(0, 5);
 	}
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
 		state = CROUCHING;
-		mario_.setCurrentFrame(6);
-		mario_.setFrames(6, 6);
+		//mario_.setCurrentFrame(5);
+		mario_.setFrames(2, 3);
 	}
 	else
 	{
 		mario_.setCurrentFrame(0);
+		//mario_.setFrames(2, 3);
 	}
 
 	mario_.update(frameTime, state, direction);

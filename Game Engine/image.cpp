@@ -181,9 +181,9 @@ inline void Image::setRect()
 	if (spriteData.state == STANDING)
 	{
 		spriteData.rect.left = 0;
-		spriteData.rect.right = 50;
+		spriteData.rect.right = 98;
 		spriteData.rect.top = 0;
-		spriteData.rect.bottom = 100;
+		spriteData.rect.bottom = 162;
 	}
 	else
 	{

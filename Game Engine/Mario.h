@@ -6,12 +6,17 @@
 
 namespace marioNS
 {
-	const int WIDTH = 50;                  // image width
-	const int HEIGHT = 100;                  // image height
+	const int WIDTH = 97;                  // image width
+	const int HEIGHT = 162;                  // image height
 	const int X = GAME_WIDTH / 2 - WIDTH;     // location on screen
 	const int Y = GAME_HEIGHT - HEIGHT;
+	const int TEXTURE_COLS = 6;
+	const int MARIO_START_FRAME = 0;
+	const int MARIO_END_FRAME = 5;
 	const float SPEED = 200;                // pixels per second
 	const float MASS = 1.0e6f;
+
+
 }
 
 // inherits from Entity class
