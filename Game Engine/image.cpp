@@ -170,35 +170,13 @@ void Image::setCurrentFrame(int c)
 //=============================================================================
 inline void Image::setRect() 
 {
-    //// configure spriteData.rect to draw currentFrame
-    //spriteData.rect.left = (currentFrame % cols) * spriteData.width;
-    //// right edge + 1
-    //spriteData.rect.right = spriteData.rect.left + spriteData.width;
-    //spriteData.rect.top = (currentFrame / cols) * spriteData.height;
-    //// bottom edge + 1
-    //spriteData.rect.bottom = spriteData.rect.top + spriteData.height;      
+    // configure spriteData.rect to draw currentFrame
+    spriteData.rect.left = (currentFrame % cols) * spriteData.width;
+    // right edge + 1
+    spriteData.rect.right = spriteData.rect.left + spriteData.width;
 
-	if (spriteData.state == STANDING)
-	{
-		spriteData.rect.left = 0;
-		spriteData.rect.right = 98;
-		spriteData.rect.top = 0;
-		spriteData.rect.bottom = 162;
-	}
-	else
-	{
-		if (spriteData.direction == LEFT)
-		{
-			spriteData.flipHorizontal = true;
-		}
-		else
-		{
-			spriteData.flipHorizontal = false;
-		}
-		spriteData.rect.left = (currentFrame) * spriteData.width + (1 * currentFrame);
-		spriteData.rect.right = spriteData.rect.left + spriteData.width;
-		spriteData.rect.top = 0;
-		spriteData.rect.bottom = spriteData.rect.top + spriteData.height;
-	}
+    spriteData.rect.top = (currentFrame / cols) * spriteData.height;
+    // bottom edge + 1
+    spriteData.rect.bottom = spriteData.rect.top + spriteData.height;
 }
 

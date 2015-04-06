@@ -18,7 +18,7 @@ void MarioGame::initialize(HWND hwnd)
 	Game::initialize(hwnd);
 	// background_ texture
 	if (!backgroundTexture_.initialize(graphics, BACKGROUND_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background_ texture"));
 
 	// mario_ texture
 	if (!marioTexture_.initialize(graphics, MARIO_IMAGE))
@@ -31,46 +31,42 @@ void MarioGame::initialize(HWND hwnd)
 
 	// mario_
 	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ball"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mario texture"));
+	 
 	mario_.setFrames(marioNS::MARIO_START_FRAME, marioNS::MARIO_END_FRAME);
 	mario_.setCurrentFrame(marioNS::MARIO_START_FRAME);
-	mario_.setScale(0.25);
+
 	return;
 }
 
 void MarioGame::update()      // must override pure virtual from Game
 {
-	//Both state and direction must be initialized
-	State state = STANDING;
-	static Direction direction = RIGHT; //Static because direction persists
-
 	if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0))
 	{
-		mario_.setX(mario_.getX() - marioNS::SPEED*frameTime);
-		state = WALKING;
-		direction = LEFT;
-		mario_.setFrames(0, 5);
+		mario_.setDirection(marioNS::LEFT);
+		mario_.setState(marioNS::WALKING);
 	}
 	else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0))
 	{
-		mario_.setX(mario_.getX() + marioNS::SPEED*frameTime);
-		state = WALKING;
-		direction = RIGHT;
-		mario_.setFrames(0, 5);
+		mario_.setDirection(marioNS::RIGHT);
+		mario_.setState(marioNS::WALKING);
 	}
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
-		state = CROUCHING;
+		mario_.setState(marioNS::CROUCHING);
 		//mario_.setCurrentFrame(5);
-		mario_.setFrames(2, 3);
+		//mario_.setFrames(2, 3);
+	}
+	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadDown(0))
+	{
+		mario_.setState(marioNS::JUMPING);
 	}
 	else
 	{
-		mario_.setCurrentFrame(0);
-		//mario_.setFrames(2, 3);
+		mario_.setState(marioNS::IDLEING);
 	}
 
-	mario_.update(frameTime, state, direction);
+	mario_.update(frameTime);
 }
 
 void MarioGame::ai()          // "

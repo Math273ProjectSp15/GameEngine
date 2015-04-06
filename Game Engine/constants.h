@@ -52,19 +52,7 @@ const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 const UCHAR LEFT_KEY    = VK_LEFT;      // left arrow
 const UCHAR RIGHT_KEY   = VK_RIGHT;     // right arrow
 const UCHAR DOWN_KEY	= VK_DOWN;		// down arrow
-
-enum State
-{
-	STANDING,
-	WALKING,
-	CROUCHING
-};
-
-enum Direction
-{
-	LEFT,
-	RIGHT
-};
+const UCHAR UP_KEY = VK_UP;		        // up arrow
 
 //=============================================================================
 // Function templates for safely dealing with pointer referenced items.
