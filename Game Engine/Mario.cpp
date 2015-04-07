@@ -34,25 +34,30 @@ Mario::Mario() : Entity()
 bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
-	marioRunning.initialize(gamePtr->getGraphics(), marioNS::RUNNING_IMAGE_WIDTH, 
-		marioNS::RUNNING_IMAGE_HEIGHT, marioNS::RUNNING_TEXTURE_COLS, textureM);
-	marioRunning.setFrames(marioNS::RUNNING_MARIO_START_FRAME, marioNS::RUNNING_MARIO_END_FRAME);
-	marioRunning.setCurrentFrame(marioNS::RUNNING_MARIO_START_FRAME);
-	//marioRunning.setFrameDelay(marioNS::)
-	//engine.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
-	//engine.setFrames(shipNS::ENGINE_START_FRAME, shipNS::ENGINE_END_FRAME);
-	//engine.setCurrentFrame(shipNS::ENGINE_START_FRAME);
-	//engine.setFrameDelay(shipNS::ENGINE_ANIMATION_DELAY);
-	//shield.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
-	//shield.setFrames(shipNS::SHIELD_START_FRAME, shipNS::SHIELD_END_FRAME);
-	//shield.setCurrentFrame(shipNS::SHIELD_START_FRAME);
-	//shield.setFrameDelay(shipNS::SHIELD_ANIMATION_DELAY);
-	//shield.setLoop(false);                  // do not loop animation
-	//explosion.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
-	//explosion.setFrames(shipNS::EXPLOSION_START_FRAME, shipNS::EXPLOSION_END_FRAME);
-	//explosion.setCurrentFrame(shipNS::EXPLOSION_START_FRAME);
-	//explosion.setFrameDelay(shipNS::EXPLOSION_ANIMATION_DELAY);
-	//explosion.setLoop(false);               // do not loop animation
+	marioWalking.initialize(gamePtr->getGraphics(), marioNS::WALKING_IMAGE_WIDTH, 
+		marioNS::WALKING_IMAGE_HEIGHT, marioNS::WALKING_TEXTURE_COLS, textureM);
+	marioWalking.setFrames(marioNS::WALKING_MARIO_START_FRAME, marioNS::WALKING_MARIO_END_FRAME);
+	marioWalking.setCurrentFrame(marioNS::WALKING_MARIO_START_FRAME);
+	marioWalking.setFrameDelay(marioNS::WALKING_ANIMATION_DELAY);
+
+	marioRolling.initialize(gamePtr->getGraphics(), marioNS::ROLLING_IMAGE_WIDTH,
+		marioNS::ROLLING_IMAGE_HEIGHT, marioNS::ROLLING_TEXTURE_COLS, textureM);
+	marioRolling.setFrames(marioNS::ROLLING_MARIO_START_FRAME, marioNS::ROLLING_MARIO_END_FRAME);
+	marioRolling.setCurrentFrame(marioNS::ROLLING_MARIO_START_FRAME);
+	marioRolling.setFrameDelay(marioNS::ROLLING_ANIMATION_DELAY);
+
+	marioJumpUp.initialize(gamePtr->getGraphics(), marioNS::JUMP_UP_IMAGE_WIDTH,
+		marioNS::JUMP_UP_IMAGE_HEIGHT, marioNS::JUMP_UP_TEXTURE_COLS, textureM);
+	marioJumpUp.setFrames(marioNS::JUMP_UP_MARIO_START_FRAME, marioNS::JUMP_UP_MARIO_END_FRAME);
+	marioJumpUp.setCurrentFrame(marioNS::JUMP_UP_MARIO_START_FRAME);
+	marioJumpUp.setFrameDelay(marioNS::JUMP_UP_ANIMATION_DELAY);
+
+	marioJumpFall.initialize(gamePtr->getGraphics(), marioNS::JUMP_FALL_IMAGE_WIDTH,
+		marioNS::JUMP_FALL_IMAGE_HEIGHT, marioNS::JUMP_FALL_TEXTURE_COLS, textureM);
+	marioJumpFall.setFrames(marioNS::JUMP_FALL_MARIO_START_FRAME, marioNS::JUMP_FALL_MARIO_END_FRAME);
+	marioJumpFall.setCurrentFrame(marioNS::JUMP_FALL_MARIO_START_FRAME);
+	marioJumpFall.setFrameDelay(marioNS::JUMP_FALL_ANIMATION_DELAY);
+
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -103,12 +108,13 @@ void Mario::update(float frameTime)
 			flipHorizontal(false);
 			velocity.x = abs(marioNS::SPEED);
 		}
-		//marioRunning.update(frameTime);
+		marioWalking.update(frameTime);
 		//setFrames(0, 5);
 	}
-	else if (getState() == marioNS::CROUCHING)
+	else if (getState() == marioNS::ROLLING)
 	{
-
+		marioRolling.update(frameTime);
+		spriteData.y = GAME_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
 	}
 	else if (getState() == marioNS::JUMPING)
 	{
@@ -120,6 +126,33 @@ void Mario::update(float frameTime)
 
 	velocity.y += frameTime * 3 * GRAVITY;
 	
+}
+
+//=============================================================================
+// draw the different mario states
+//=============================================================================
+void Mario::draw()
+{
+	if (state_ == marioNS::WALKING)
+	{
+		marioWalking.draw(spriteData);
+	}
+	else if (state_ == marioNS::ROLLING)
+	{
+		marioRolling.draw(spriteData);
+	}
+	else if (state_ == marioNS::JUMPING)
+	{
+		if (velocity.y < 0)
+			marioJumpUp.draw(spriteData);
+		else
+			marioJumpFall.draw(spriteData);
+	}
+	else
+	{
+		Image::draw();
+	}
+
 }
 
 void Mario::setState(marioNS::State state)

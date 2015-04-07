@@ -27,7 +27,6 @@ void MarioGame::initialize(HWND hwnd)
 	// background_
 	if (!background_.initialize(graphics, 0, 0, 0, &backgroundTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	background_.setScale(GAME_HEIGHT * 1.0 / background_.getHeight());
 
 	// mario_
 	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
@@ -50,10 +49,12 @@ void MarioGame::update()      // must override pure virtual from Game
 	{
 		mario_.setDirection(marioNS::RIGHT);
 		mario_.setState(marioNS::WALKING);
+		if (input->isKeyDown(UP_KEY))
+			mario_.setState(marioNS::JUMPING);
 	}
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
-		mario_.setState(marioNS::CROUCHING);
+		mario_.setState(marioNS::ROLLING);
 		//mario_.setCurrentFrame(5);
 		//mario_.setFrames(2, 3);
 	}

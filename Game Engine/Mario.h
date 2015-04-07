@@ -16,17 +16,36 @@ namespace marioNS
 	const int IDLE_MARIO_END_FRAME = 23;  //23
 	const float SPEED = 200;                // pixels per second
 	const float MASS = 1.0e6f;
-	const int RUNNING_IMAGE_WIDTH = 256;
-	const int RUNNING_IMAGE_HEIGHT = 256;
-	const int RUNNING_TEXTURE_COLS = 5;
-	const int RUNNING_MARIO_START_FRAME = 10;
-	const int RUNNING_MARIO_END_FRAME = 14;
+	const int WALKING_IMAGE_WIDTH = 256;
+	const int WALKING_IMAGE_HEIGHT = 256;
+	const int WALKING_TEXTURE_COLS = 5;
+	const int WALKING_MARIO_START_FRAME = 10;
+	const int WALKING_MARIO_END_FRAME = 14;
+	const float WALKING_ANIMATION_DELAY = 0.2f;
+	const int ROLLING_IMAGE_WIDTH = 128;
+	const int ROLLING_IMAGE_HEIGHT = 128;
+	const int ROLLING_TEXTURE_COLS = 2;
+	const int ROLLING_MARIO_START_FRAME = 0;
+	const int ROLLING_MARIO_END_FRAME = 3;
+	const float ROLLING_ANIMATION_DELAY = 0.1f;
+	const int JUMP_UP_IMAGE_WIDTH = 128;
+	const int JUMP_UP_IMAGE_HEIGHT = 256;
+	const int JUMP_UP_TEXTURE_COLS = 6;
+	const int JUMP_UP_MARIO_START_FRAME = 5;
+	const int JUMP_UP_MARIO_END_FRAME = 4;
+	const float JUMP_UP_ANIMATION_DELAY = 1.0f;
+	const int JUMP_FALL_IMAGE_WIDTH = 256;
+	const int JUMP_FALL_IMAGE_HEIGHT = 256;
+	const int JUMP_FALL_TEXTURE_COLS = 4;
+	const int JUMP_FALL_MARIO_START_FRAME = 3;
+	const int JUMP_FALL_MARIO_END_FRAME = 3;
+	const float JUMP_FALL_ANIMATION_DELAY = 1.0f;
 
 	enum State
 	{
 		IDLEING,
 		WALKING,
-		CROUCHING,
+		ROLLING,
 		JUMPING,
 	};
 
@@ -42,13 +61,17 @@ namespace marioNS
 class Mario : public Entity
 {
 private:
-	Image marioRunning;
+	Image marioWalking;
+	Image marioRolling;
+	Image marioJumpUp;
+	Image marioJumpFall;
 
 public:
 	// constructor
 	Mario();
 
 	// inherited member functions
+	virtual void draw();
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 
