@@ -16,14 +16,15 @@
 //=============================================================================
 // graphic images
 const char BACKGROUND_IMAGE[] = "pictures\\background.png";
-const char MARIO_IMAGE[]	= "pictures\\RedHeadBoy.png"; 
+const char MARIO_IMAGE[]	= "pictures\\RedHeadBoy.png";
+const char DARK_MARIO_IMAGE[] = "pictures\\DarkMario_2048x2048.png";
 
 // window
 const char CLASS_NAME[] = "MarioGame";
 const char GAME_TITLE[] = "MarioGame";
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  640;               // width of game in pixels
-const UINT GAME_HEIGHT = 480;               // height of game in pixels
+const UINT GAME_WIDTH =  800;               // width of game in pixels
+const UINT GAME_HEIGHT = 600;               // height of game in pixels
  
 // game
 const bool VSYNC = true;                    // true locks display to vertical sync rate

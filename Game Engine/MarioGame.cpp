@@ -21,7 +21,7 @@ void MarioGame::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background_ texture"));
 
 	// mario_ texture
-	if (!marioTexture_.initialize(graphics, MARIO_IMAGE))
+	if (!marioTexture_.initialize(graphics, DARK_MARIO_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mario_ texture"));
 
 	// background_
@@ -33,8 +33,8 @@ void MarioGame::initialize(HWND hwnd)
 	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mario texture"));
 	 
-	mario_.setFrames(marioNS::MARIO_START_FRAME, marioNS::MARIO_END_FRAME);
-	mario_.setCurrentFrame(marioNS::MARIO_START_FRAME);
+	mario_.setFrames(marioNS::IDLE_MARIO_START_FRAME, marioNS::IDLE_MARIO_END_FRAME);
+	mario_.setCurrentFrame(marioNS::IDLE_MARIO_START_FRAME);
 
 	return;
 }

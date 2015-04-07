@@ -7,15 +7,20 @@
 
 namespace marioNS
 {
-	const int WIDTH = 98;                  // image width
-	const int HEIGHT = 162;                  // image height
+	const int WIDTH = 128;   ///128               // image width
+	const int HEIGHT = 256;                  // image height
 	const int X = GAME_WIDTH / 2 - WIDTH ;     // location on screen
 	const int Y = GAME_HEIGHT - HEIGHT ;
-	const int TEXTURE_COLS = 6;
-	const int MARIO_START_FRAME = 0;
-	const int MARIO_END_FRAME = 5;
+	const int TEXTURE_COLS = 12; //12
+	const int IDLE_MARIO_START_FRAME = 12; //12
+	const int IDLE_MARIO_END_FRAME = 23;  //23
 	const float SPEED = 200;                // pixels per second
 	const float MASS = 1.0e6f;
+	const int RUNNING_IMAGE_WIDTH = 256;
+	const int RUNNING_IMAGE_HEIGHT = 256;
+	const int RUNNING_TEXTURE_COLS = 5;
+	const int RUNNING_MARIO_START_FRAME = 10;
+	const int RUNNING_MARIO_END_FRAME = 14;
 
 	enum State
 	{
@@ -36,9 +41,16 @@ namespace marioNS
 // inherits from Entity class
 class Mario : public Entity
 {
+private:
+	Image marioRunning;
+
 public:
 	// constructor
 	Mario();
+
+	// inherited member functions
+	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
+		TextureManager *textureM);
 
 	// inherited member functions
 	void update(float frameTime);
@@ -52,4 +64,6 @@ public:
 protected:
 	marioNS::State state_;
 	marioNS::Direction direction_;
+	
+	
 };

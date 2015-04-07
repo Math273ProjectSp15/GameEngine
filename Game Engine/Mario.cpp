@@ -28,6 +28,36 @@ Mario::Mario() : Entity()
 }
 
 //=============================================================================
+// Initialize Mario.
+// Post: returns true if successful, false if failed
+//=============================================================================
+bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
+	TextureManager *textureM)
+{
+	marioRunning.initialize(gamePtr->getGraphics(), marioNS::RUNNING_IMAGE_WIDTH, 
+		marioNS::RUNNING_IMAGE_HEIGHT, marioNS::RUNNING_TEXTURE_COLS, textureM);
+	marioRunning.setFrames(marioNS::RUNNING_MARIO_START_FRAME, marioNS::RUNNING_MARIO_END_FRAME);
+	marioRunning.setCurrentFrame(marioNS::RUNNING_MARIO_START_FRAME);
+	//marioRunning.setFrameDelay(marioNS::)
+	//engine.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
+	//engine.setFrames(shipNS::ENGINE_START_FRAME, shipNS::ENGINE_END_FRAME);
+	//engine.setCurrentFrame(shipNS::ENGINE_START_FRAME);
+	//engine.setFrameDelay(shipNS::ENGINE_ANIMATION_DELAY);
+	//shield.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
+	//shield.setFrames(shipNS::SHIELD_START_FRAME, shipNS::SHIELD_END_FRAME);
+	//shield.setCurrentFrame(shipNS::SHIELD_START_FRAME);
+	//shield.setFrameDelay(shipNS::SHIELD_ANIMATION_DELAY);
+	//shield.setLoop(false);                  // do not loop animation
+	//explosion.initialize(gamePtr->getGraphics(), width, height, ncols, textureM);
+	//explosion.setFrames(shipNS::EXPLOSION_START_FRAME, shipNS::EXPLOSION_END_FRAME);
+	//explosion.setCurrentFrame(shipNS::EXPLOSION_START_FRAME);
+	//explosion.setFrameDelay(shipNS::EXPLOSION_ANIMATION_DELAY);
+	//explosion.setLoop(false);               // do not loop animation
+	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
+}
+
+
+//=============================================================================
 // update
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
@@ -55,7 +85,7 @@ void Mario::update(float frameTime)
 
 	if (getState() == marioNS::IDLEING)
 	{
-		setFrames(0, 0);
+		setFrames(marioNS::IDLE_MARIO_START_FRAME, marioNS::IDLE_MARIO_END_FRAME);
 		if (spriteData.y == GAME_HEIGHT - marioNS::HEIGHT)
 		{
 			velocity.x = 0;
@@ -73,7 +103,8 @@ void Mario::update(float frameTime)
 			flipHorizontal(false);
 			velocity.x = abs(marioNS::SPEED);
 		}
-		setFrames(0, 5);
+		//marioRunning.update(frameTime);
+		//setFrames(0, 5);
 	}
 	else if (getState() == marioNS::CROUCHING)
 	{
