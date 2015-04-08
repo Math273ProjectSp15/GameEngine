@@ -113,8 +113,18 @@ void Mario::update(float frameTime)
 	}
 	else if (getState() == marioNS::ROLLING)
 	{
-		marioRolling.update(frameTime);
 		spriteData.y = GAME_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
+		if (getDirection() == marioNS::LEFT)
+		{
+			flipHorizontal(true);
+			velocity.x = -abs(marioNS::SPEED);
+		}
+		else if (getDirection() == marioNS::RIGHT)
+		{
+			flipHorizontal(false);
+			velocity.x = abs(marioNS::SPEED);
+		}
+		marioRolling.update(frameTime);
 	}
 	else if (getState() == marioNS::JUMPING)
 	{
