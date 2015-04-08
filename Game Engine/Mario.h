@@ -56,7 +56,8 @@ namespace marioNS
 	enum Direction
 	{
 		LEFT,
-		RIGHT
+		RIGHT,
+		STATIONARY
 	};
 
 }

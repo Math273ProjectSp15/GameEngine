@@ -69,30 +69,33 @@ void MarioGame::update()      // must override pure virtual from Game
 	{
 		mario_.setDirection(marioNS::LEFT);
 		mario_.setState(marioNS::WALKING);
+		if (input->isKeyDown(UP_KEY))
+			mario_.setState(marioNS::JUMPING);
 	}
-	else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0))
+	else if (input->isKeyDown(RIGHT_KEY) && !input->isKeyDown(DOWN_KEY) || input->getGamepadDPadRight(0))
 	{
 		mario_.setDirection(marioNS::RIGHT);
 		mario_.setState(marioNS::WALKING);
 		if (input->isKeyDown(UP_KEY))
-		mario_.setState(marioNS::JUMPING);
+			mario_.setState(marioNS::JUMPING);
 	}
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
 		mario_.setState(marioNS::ROLLING);
+		//mario_.setCurrentFrame(5);
+		//mario_.setFrames(2, 3);
 	}
 	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadUp(0))
 	{
 		if (background_.getY() == -MAP_HEIGHT + (int)GAME_HEIGHT)
-		{
-			mario_.setState(marioNS::JUMPING);
-		}
+	{
+		mario_.setState(marioNS::JUMPING);
+	}
 	}
 	else
 	{
 		mario_.setState(marioNS::IDLEING);
 	}
-
 	mario_.update(frameTime);
 }
 
