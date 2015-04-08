@@ -21,9 +21,9 @@ const char MARIO_IMAGE[]	= "pictures\\RedHeadBoy.png";
 // window
 const char CLASS_NAME[] = "MarioGame";
 const char GAME_TITLE[] = "MarioGame";
-const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  640;               // width of game in pixels
-const UINT GAME_HEIGHT = 480;               // height of game in pixels
+const bool FULLSCREEN = TRUE;              // windowed or fullscreen
+const UINT GAME_WIDTH =  1366;               // width of game in pixels
+const UINT GAME_HEIGHT = 768;               // height of game in pixels
  
 // game
 const bool VSYNC = true;                    // true locks display to vertical sync rate
