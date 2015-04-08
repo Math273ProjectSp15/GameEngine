@@ -17,13 +17,15 @@
 // graphic images
 const char BACKGROUND_IMAGE[] = "pictures\\background.png";
 const char MARIO_IMAGE[]	= "pictures\\RedHeadBoy.png"; 
+const char DARK_MARIO_IMAGE[] = "pictures\\DarkMario_2048x2048.png";
 
 // window
 const char CLASS_NAME[] = "MarioGame";
 const char GAME_TITLE[] = "MarioGame";
-const bool FULLSCREEN = TRUE;              // windowed or fullscreen
-const UINT GAME_WIDTH =  1366;               // width of game in pixels
-const UINT GAME_HEIGHT = 768;               // height of game in pixels
+const bool FULLSCREEN = false;              // windowed or fullscreen
+const UINT GAME_WIDTH =  800;               // width of game in pixels
+const UINT GAME_HEIGHT = 600;               // height of game in pixels
+
  
 // game
 const bool VSYNC = true;                    // true locks display to vertical sync rate
@@ -33,6 +35,8 @@ const float MIN_FRAME_RATE = 10.0f;         // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const float GRAVITY = 500.0f;                   // acceleration of gravity pixels/sec
+const int MAP_WIDTH = 3072;
+const int MAP_HEIGHT = 1536;
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.

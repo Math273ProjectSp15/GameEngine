@@ -21,26 +21,50 @@ void MarioGame::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background_ texture"));
 
 	// mario_ texture
-	if (!marioTexture_.initialize(graphics, MARIO_IMAGE))
+	if (!marioTexture_.initialize(graphics, DARK_MARIO_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mario_ texture"));
 
 	// background_
 	if (!background_.initialize(graphics, 0, 0, 0, &backgroundTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	background_.setScale(GAME_HEIGHT * 1.0 / background_.getHeight());
+	background_.setY(-MAP_HEIGHT + (int)GAME_HEIGHT);
 
 	// mario_
 	if (!mario_.initialize(this, marioNS::WIDTH, marioNS::HEIGHT, marioNS::TEXTURE_COLS, &marioTexture_))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mario texture"));
 	 
-	mario_.setFrames(marioNS::MARIO_START_FRAME, marioNS::MARIO_END_FRAME);
-	mario_.setCurrentFrame(marioNS::MARIO_START_FRAME);
+	mario_.setFrames(marioNS::IDLE_MARIO_START_FRAME, marioNS::IDLE_MARIO_END_FRAME);
+	mario_.setCurrentFrame(marioNS::IDLE_MARIO_START_FRAME);
 
 	return;
 }
 
 void MarioGame::update()      // must override pure virtual from Game
 {
+	// move background_ in X direction opposite mario_
+	background_.setX(background_.getX() - frameTime * mario_.getVelocity().x);
+
+	// move background_ in Y direction opposite mario_
+	background_.setY(background_.getY() - frameTime * mario_.getVelocity().y);
+		
+
+	// Wrap background_ image around at edge
+	// if left edge of background_ > screen left edge
+	if (background_.getX() > 0)
+		background_.setX(0);
+
+	// if background_ image off screen left
+	if (background_.getX() < -MAP_WIDTH + (int)GAME_WIDTH)
+		background_.setX(-MAP_WIDTH + (int)GAME_WIDTH);
+
+	// if top edge of background_ > screen top edge
+	if (background_.getY() > 0)
+		background_.setY(0);
+
+	// if background_ image off screen top
+	if (background_.getY() < -MAP_HEIGHT + (int)GAME_HEIGHT)
+		background_.setY(-MAP_HEIGHT + (int)GAME_HEIGHT);
+	
 	if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0))
 	{
 		mario_.setDirection(marioNS::LEFT);
@@ -50,16 +74,19 @@ void MarioGame::update()      // must override pure virtual from Game
 	{
 		mario_.setDirection(marioNS::RIGHT);
 		mario_.setState(marioNS::WALKING);
+		if (input->isKeyDown(UP_KEY))
+		mario_.setState(marioNS::JUMPING);
 	}
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
-		mario_.setState(marioNS::CROUCHING);
-		//mario_.setCurrentFrame(5);
-		//mario_.setFrames(2, 3);
+		mario_.setState(marioNS::ROLLING);
 	}
-	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadDown(0))
+	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadUp(0))
 	{
-		mario_.setState(marioNS::JUMPING);
+		if (background_.getY() == -MAP_HEIGHT + (int)GAME_HEIGHT)
+		{
+			mario_.setState(marioNS::JUMPING);
+		}
 	}
 	else
 	{
@@ -84,8 +111,9 @@ void MarioGame :: render()      // "
 {
 	graphics->spriteBegin();                // begin drawing sprites
 
-	background_.draw();                        // add the background to the scene
+	background_.draw();                     // add the background to the scene
 	mario_.draw();                          // add mario to the scene
+	
 	graphics->spriteEnd();                  // end drawing sprites
 }
 void MarioGame :: releaseAll()
