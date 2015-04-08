@@ -40,12 +40,14 @@ void MarioGame::initialize(HWND hwnd)
 
 void MarioGame::update()      // must override pure virtual from Game
 {
-	if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0))
+	if (input->isKeyDown(LEFT_KEY) && !input->isKeyDown(DOWN_KEY) || input->getGamepadDPadLeft(0))
 	{
 		mario_.setDirection(marioNS::LEFT);
 		mario_.setState(marioNS::WALKING);
+		if (input->isKeyDown(UP_KEY))
+			mario_.setState(marioNS::JUMPING);
 	}
-	else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0))
+	else if (input->isKeyDown(RIGHT_KEY) && !input->isKeyDown(DOWN_KEY) || input->getGamepadDPadRight(0))
 	{
 		mario_.setDirection(marioNS::RIGHT);
 		mario_.setState(marioNS::WALKING);
@@ -55,8 +57,13 @@ void MarioGame::update()      // must override pure virtual from Game
 	else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0))
 	{
 		mario_.setState(marioNS::ROLLING);
-		//mario_.setCurrentFrame(5);
-		//mario_.setFrames(2, 3);
+		if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0))
+			mario_.setDirection(marioNS::LEFT);
+		else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0))
+			mario_.setDirection(marioNS::RIGHT);
+		else
+			mario_.setDirection(marioNS::STATIONARY);
+
 	}
 	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadDown(0))
 	{
@@ -66,7 +73,6 @@ void MarioGame::update()      // must override pure virtual from Game
 	{
 		mario_.setState(marioNS::IDLEING);
 	}
-
 	mario_.update(frameTime);
 }
 

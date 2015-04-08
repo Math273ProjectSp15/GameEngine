@@ -71,7 +71,7 @@ void Mario::update(float frameTime)
 {
 	Entity::update(frameTime);
 
-	spriteData.x += frameTime * velocity.x;         // move along X 
+ 	spriteData.x += frameTime * velocity.x;         // move along X 
 	spriteData.y += frameTime * velocity.y;         // move along Y
 
 	// Bounce off walls
@@ -109,11 +109,10 @@ void Mario::update(float frameTime)
 			velocity.x = abs(marioNS::SPEED);
 		}
 		marioWalking.update(frameTime);
-		//setFrames(0, 5);
 	}
 	else if (getState() == marioNS::ROLLING)
 	{
-		spriteData.y = GAME_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
+		spriteData.y = spriteData.y + marioNS::ROLLING_IMAGE_HEIGHT;
 		if (getDirection() == marioNS::LEFT)
 		{
 			flipHorizontal(true);
