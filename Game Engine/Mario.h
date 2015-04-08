@@ -21,7 +21,7 @@ namespace marioNS
 	const int WALKING_TEXTURE_COLS = 5;
 	const int WALKING_MARIO_START_FRAME = 10;
 	const int WALKING_MARIO_END_FRAME = 14;
-	const float WALKING_ANIMATION_DELAY = 0.2f;
+	const float WALKING_ANIMATION_DELAY = 0.15f;
 	const int ROLLING_IMAGE_WIDTH = 128;
 	const int ROLLING_IMAGE_HEIGHT = 128;
 	const int ROLLING_TEXTURE_COLS = 2;
