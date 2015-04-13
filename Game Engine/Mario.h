@@ -66,10 +66,10 @@ namespace marioNS
 class Mario : public Entity
 {
 private:
-	Image marioWalking;
-	Image marioRolling;
-	Image marioJumpUp;
-	Image marioJumpFall;
+	Image marioWalking_;
+	Image marioRolling_;
+	Image marioJumpUp_;
+	Image marioJumpFall_;
 
 public:
 	// constructor
