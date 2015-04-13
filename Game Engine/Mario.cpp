@@ -34,29 +34,29 @@ Mario::Mario() : Entity()
 bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
-	marioWalking.initialize(gamePtr->getGraphics(), marioNS::WALKING_IMAGE_WIDTH, 
+	marioWalking_.initialize(gamePtr->getGraphics(), marioNS::WALKING_IMAGE_WIDTH, 
 		marioNS::WALKING_IMAGE_HEIGHT, marioNS::WALKING_TEXTURE_COLS, textureM);
-	marioWalking.setFrames(marioNS::WALKING_MARIO_START_FRAME, marioNS::WALKING_MARIO_END_FRAME);
-	marioWalking.setCurrentFrame(marioNS::WALKING_MARIO_START_FRAME);
-	marioWalking.setFrameDelay(marioNS::WALKING_ANIMATION_DELAY);
+	marioWalking_.setFrames(marioNS::WALKING_MARIO_START_FRAME, marioNS::WALKING_MARIO_END_FRAME);
+	marioWalking_.setCurrentFrame(marioNS::WALKING_MARIO_START_FRAME);
+	marioWalking_.setFrameDelay(marioNS::WALKING_ANIMATION_DELAY);
 
-	marioRolling.initialize(gamePtr->getGraphics(), marioNS::ROLLING_IMAGE_WIDTH,
+	marioRolling_.initialize(gamePtr->getGraphics(), marioNS::ROLLING_IMAGE_WIDTH,
 		marioNS::ROLLING_IMAGE_HEIGHT, marioNS::ROLLING_TEXTURE_COLS, textureM);
-	marioRolling.setFrames(marioNS::ROLLING_MARIO_START_FRAME, marioNS::ROLLING_MARIO_END_FRAME);
-	marioRolling.setCurrentFrame(marioNS::ROLLING_MARIO_START_FRAME);
-	marioRolling.setFrameDelay(marioNS::ROLLING_ANIMATION_DELAY);
+	marioRolling_.setFrames(marioNS::ROLLING_MARIO_START_FRAME, marioNS::ROLLING_MARIO_END_FRAME);
+	marioRolling_.setCurrentFrame(marioNS::ROLLING_MARIO_START_FRAME);
+	marioRolling_.setFrameDelay(marioNS::ROLLING_ANIMATION_DELAY);
 
-	marioJumpUp.initialize(gamePtr->getGraphics(), marioNS::JUMP_UP_IMAGE_WIDTH,
+	marioJumpUp_.initialize(gamePtr->getGraphics(), marioNS::JUMP_UP_IMAGE_WIDTH,
 		marioNS::JUMP_UP_IMAGE_HEIGHT, marioNS::JUMP_UP_TEXTURE_COLS, textureM);
-	marioJumpUp.setFrames(marioNS::JUMP_UP_MARIO_START_FRAME, marioNS::JUMP_UP_MARIO_END_FRAME);
-	marioJumpUp.setCurrentFrame(marioNS::JUMP_UP_MARIO_START_FRAME);
-	marioJumpUp.setFrameDelay(marioNS::JUMP_UP_ANIMATION_DELAY);
+	marioJumpUp_.setFrames(marioNS::JUMP_UP_MARIO_START_FRAME, marioNS::JUMP_UP_MARIO_END_FRAME);
+	marioJumpUp_.setCurrentFrame(marioNS::JUMP_UP_MARIO_START_FRAME);
+	marioJumpUp_.setFrameDelay(marioNS::JUMP_UP_ANIMATION_DELAY);
 
-	marioJumpFall.initialize(gamePtr->getGraphics(), marioNS::JUMP_FALL_IMAGE_WIDTH,
+	marioJumpFall_.initialize(gamePtr->getGraphics(), marioNS::JUMP_FALL_IMAGE_WIDTH,
 		marioNS::JUMP_FALL_IMAGE_HEIGHT, marioNS::JUMP_FALL_TEXTURE_COLS, textureM);
-	marioJumpFall.setFrames(marioNS::JUMP_FALL_MARIO_START_FRAME, marioNS::JUMP_FALL_MARIO_END_FRAME);
-	marioJumpFall.setCurrentFrame(marioNS::JUMP_FALL_MARIO_START_FRAME);
-	marioJumpFall.setFrameDelay(marioNS::JUMP_FALL_ANIMATION_DELAY);
+	marioJumpFall_.setFrames(marioNS::JUMP_FALL_MARIO_START_FRAME, marioNS::JUMP_FALL_MARIO_END_FRAME);
+	marioJumpFall_.setCurrentFrame(marioNS::JUMP_FALL_MARIO_START_FRAME);
+	marioJumpFall_.setFrameDelay(marioNS::JUMP_FALL_ANIMATION_DELAY);
 
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
@@ -108,7 +108,7 @@ void Mario::update(float frameTime)
 			flipHorizontal(false);
 			velocity.x = abs(marioNS::SPEED);
 		}
-		marioWalking.update(frameTime);
+		marioWalking_.update(frameTime);
 	}
 	else if (getState() == marioNS::ROLLING)
 	{
@@ -123,7 +123,7 @@ void Mario::update(float frameTime)
 			flipHorizontal(false);
 			velocity.x = abs(marioNS::SPEED);
 		}
-		marioRolling.update(frameTime);
+		marioRolling_.update(frameTime);
 	}
 	else if (getState() == marioNS::JUMPING)
 	{
@@ -143,18 +143,18 @@ void Mario::draw()
 {
 	if (state_ == marioNS::WALKING)
 	{
-		marioWalking.draw(spriteData);
+		marioWalking_.draw(spriteData);
 	}
 	else if (state_ == marioNS::ROLLING)
 	{
-		marioRolling.draw(spriteData);
+		marioRolling_.draw(spriteData);
 	}
 	else if (state_ == marioNS::JUMPING)
 	{
 		if (velocity.y < 0)
-			marioJumpUp.draw(spriteData);
+			marioJumpUp_.draw(spriteData);
 		else
-			marioJumpFall.draw(spriteData);
+			marioJumpFall_.draw(spriteData);
 	}
 	else
 	{
