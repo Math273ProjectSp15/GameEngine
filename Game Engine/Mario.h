@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "constants.h"
 #include "cmath"
+#include "background.h"
 
 namespace marioNS
 {
@@ -70,6 +71,7 @@ private:
 	Image marioRolling_;
 	Image marioJumpUp_;
 	Image marioJumpFall_;
+	
 
 public:
 	// constructor
@@ -77,11 +79,10 @@ public:
 
 	// inherited member functions
 	virtual void draw();
-	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
-		TextureManager *textureM);
+	virtual bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 
 	// inherited member functions
-	void update(float frameTime);
+	void update(float frameTime, Background *background);
 	
 	void setState(marioNS::State state);
 	marioNS::State getState();
@@ -92,6 +93,6 @@ public:
 protected:
 	marioNS::State state_;
 	marioNS::Direction direction_;
-	
-	
+	float mapX_;
+	float mapY_;
 };

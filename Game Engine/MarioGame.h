@@ -5,6 +5,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "Mario.h"
+#include "background.h"
 
 class MarioGame : public Game
 {
@@ -27,10 +28,13 @@ public:
 //=============================================================================
 private:
 	// game items
-	TextureManager backgroundTexture_; // backdrop texture
-	TextureManager marioTexture_;     // ball texture
+	TextureManager backgroundTexture_; // background texture
+	TextureManager marioTexture_;     // mario texture
 	
-	Mario mario_; // mario
-	Image background_;// background
+	Background Background_;
+
+	Mario mario_;     // mario
+	Image background_;// background Image
+
 };
 

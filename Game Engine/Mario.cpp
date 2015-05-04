@@ -25,6 +25,9 @@ Mario::Mario() : Entity()
 
 	state_ = marioNS::IDLEING;
 	direction_ = marioNS::RIGHT;
+
+	mapX_ = marioNS::X;
+	mapY_ = GAME_HEIGHT - GROUND_HEIGHT - marioNS::HEIGHT - 30.0;
 }
 
 //=============================================================================
@@ -36,6 +39,7 @@ bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
 {
 	marioWalking_.initialize(gamePtr->getGraphics(), marioNS::WALKING_IMAGE_WIDTH, 
 		marioNS::WALKING_IMAGE_HEIGHT, marioNS::WALKING_TEXTURE_COLS, textureM);
+
 	marioWalking_.setFrames(marioNS::WALKING_MARIO_START_FRAME, marioNS::WALKING_MARIO_END_FRAME);
 	marioWalking_.setCurrentFrame(marioNS::WALKING_MARIO_START_FRAME);
 	marioWalking_.setFrameDelay(marioNS::WALKING_ANIMATION_DELAY);
@@ -67,21 +71,24 @@ bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void Mario::update(float frameTime)
+void Mario::update(float frameTime, Background *background)
 {
 	Entity::update(frameTime);
 
-	//spriteData.x += frameTime * velocity.x;         // move along X 
-	//spriteData.y += frameTime * velocity.y;         // move along Y
+	mapX_ += velocity.x * frameTime;
+	spriteData.x += velocity.x * frameTime;
+
+	mapY_ += velocity.y * frameTime;
+	spriteData.y += velocity.y * frameTime;
 
 	// Bounce off walls
-	if (spriteData.x > GAME_WIDTH - marioNS::WIDTH)  // if hit right screen edge
+	/*if (spriteData.x > GAME_WIDTH - marioNS::WIDTH)  // if hit right map edge
 	{
 		spriteData.x = GAME_WIDTH - marioNS::WIDTH;
 	} 
-	else if (spriteData.x < 0)                       // else if hit left screen edge
+	else if (spriteData.x < 0)                       // else if hit left map edge
 	{
-		spriteData.x = 0;                   
+		spriteData.x = 0;
 	}
 	else if (spriteData.y > GAME_HEIGHT - marioNS::HEIGHT) // else if below ground
 	{
@@ -112,7 +119,7 @@ void Mario::update(float frameTime)
 	}
 	else if (getState() == marioNS::ROLLING)
 	{
-		spriteData.y = spriteData.y + marioNS::ROLLING_IMAGE_HEIGHT;
+		spriteData.y = GAME_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
 		if (getDirection() == marioNS::LEFT)
 		{
 			flipHorizontal(true);
@@ -132,8 +139,10 @@ void Mario::update(float frameTime)
 			velocity.y = -3 * marioNS::SPEED;
 		}
 	}
-
-	velocity.y += frameTime * 3 * GRAVITY;
+	/*while (velocity.y <= 0)
+	{
+		velocity.y += frameTime * 3 * GRAVITY;
+	}*/
 }
 
 //=============================================================================
@@ -182,3 +191,5 @@ marioNS::Direction Mario::getDirection()
 {
 	return direction_;
 }
+
+

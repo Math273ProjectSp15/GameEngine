@@ -26,6 +26,7 @@ const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  800;               // width of game in pixels
 const UINT GAME_HEIGHT = 600;               // height of game in pixels
 
+const float GROUND_HEIGHT = 160;
  
 // game
 const bool VSYNC = true;                    // true locks display to vertical sync rate
