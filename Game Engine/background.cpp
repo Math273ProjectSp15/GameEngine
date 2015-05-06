@@ -97,5 +97,5 @@ float Background::getGroundHeight()
 
 bool Background::movable(float mapX_, float mapY_, int Height, int width)
 {
-	
+	return true;
 }

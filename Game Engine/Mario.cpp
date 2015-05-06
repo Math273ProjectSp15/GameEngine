@@ -27,7 +27,8 @@ Mario::Mario() : Entity()
 	direction_ = marioNS::RIGHT;
 
 	mapX_ = marioNS::X;
-	mapY_ = GAME_HEIGHT - GROUND_HEIGHT - marioNS::HEIGHT - 30.0;
+	//mapY_ = GAME_HEIGHT - GROUND_HEIGHT - marioNS::HEIGHT - 30.0;
+	mapY_ = GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT;
 }
 
 //=============================================================================
@@ -76,29 +77,29 @@ void Mario::update(float frameTime, Background *background)
 	Entity::update(frameTime);
 
 	mapX_ += velocity.x * frameTime;
-	spriteData.x += velocity.x * frameTime;
+	//spriteData.x += velocity.x * frameTime;
 
 	mapY_ += velocity.y * frameTime;
 	spriteData.y += velocity.y * frameTime;
 
 	// Bounce off walls
-	/*if (spriteData.x > GAME_WIDTH - marioNS::WIDTH)  // if hit right map edge
+	if (spriteData.x > backgroundNS::MAP_WIDTH - marioNS::WIDTH)  // if hit right map edge
 	{
-		spriteData.x = GAME_WIDTH - marioNS::WIDTH;
+		spriteData.x = backgroundNS::MAP_WIDTH - marioNS::WIDTH;
 	} 
 	else if (spriteData.x < 0)                       // else if hit left map edge
 	{
 		spriteData.x = 0;
 	}
-	else if (spriteData.y > GAME_HEIGHT - marioNS::HEIGHT) // else if below ground
+	else if (spriteData.y > GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT) // else if below ground
 	{
-		spriteData.y = GAME_HEIGHT - marioNS::HEIGHT;
+		spriteData.y = GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT;
 	}
 
 	if (getState() == marioNS::IDLEING)
 	{
 		setFrames(marioNS::IDLE_MARIO_START_FRAME, marioNS::IDLE_MARIO_END_FRAME);
-		if (spriteData.y == GAME_HEIGHT - marioNS::HEIGHT)
+		if (spriteData.y == GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT)
 		{
 			velocity.x = 0;
 		}
@@ -119,7 +120,7 @@ void Mario::update(float frameTime, Background *background)
 	}
 	else if (getState() == marioNS::ROLLING)
 	{
-		spriteData.y = GAME_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
+		spriteData.y = GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::ROLLING_IMAGE_HEIGHT;
 		if (getDirection() == marioNS::LEFT)
 		{
 			flipHorizontal(true);
@@ -134,15 +135,12 @@ void Mario::update(float frameTime, Background *background)
 	}
 	else if (getState() == marioNS::JUMPING)
 	{
-		if (spriteData.y == GAME_HEIGHT - marioNS::HEIGHT)
+		if (spriteData.y == GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT)
 		{
 			velocity.y = -3 * marioNS::SPEED;
 		}
 	}
-	/*while (velocity.y <= 0)
-	{
-		velocity.y += frameTime * 3 * GRAVITY;
-	}*/
+	velocity.y += frameTime * 3 * GRAVITY;
 }
 
 //=============================================================================

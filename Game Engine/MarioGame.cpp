@@ -65,16 +65,25 @@ void MarioGame::update()      // must override pure virtual from Game
 	}
 	else if (input->isKeyDown(UP_KEY) || input->getGamepadDPadUp(0))
 	{
-		/*if (SpriteData.y <= MAP_HEIGHT -  marioNS::HEIGHT)
-	    {
-			mario_.setState(marioNS::JUMPING);
-	    }*/
+		mario_.setState(marioNS::JUMPING);
 	}
 	else
 	{
 		mario_.setState(marioNS::IDLEING);
 	}
-	mario_.update(frameTime, Background_);
+	mario_.update(frameTime, &Background_);
+
+	//Move the background 
+	// move the background in X direction opposite mario
+	background_.setX(background_.getX() - frameTime * mario_.getVelocity().x);
+	//Wrap Backround
+	//if (background_.getX() > 0)
+	//	background_.setX(background_.getX() - backgroundNS::MAP_WIDTH);
+	//if (background_.getX() < -backgroundNS::MAP_WIDTH)
+	//	background_.setX(background_.getX() + backgroundNS::MAP_WIDTH);
+	// move background in Y direction opposite mario
+	//background_.setY(background_.getY() - frameTime * mario_.getVelocity().y);
+
 	
 }
 

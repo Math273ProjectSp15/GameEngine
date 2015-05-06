@@ -8,6 +8,7 @@ namespace backgroundNS
 	const int GRID_LENGTH = 32;
 	const int GRID_WIDTH = 96;
 	const int GRID_HEIGHT = 48;
+	const int GROUND_HEIGHT = 192;
 
 	// G = ground, AG = air ground, L = lava, S = spike
 	const int G = 0, AG = 1, L = 2, S = 3;

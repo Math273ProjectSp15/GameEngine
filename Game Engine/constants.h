@@ -23,8 +23,8 @@ const char DARK_MARIO_IMAGE[] = "pictures\\DarkMario_2048x2048.png";
 const char CLASS_NAME[] = "MarioGame";
 const char GAME_TITLE[] = "MarioGame";
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  800;               // width of game in pixels
-const UINT GAME_HEIGHT = 600;               // height of game in pixels
+const UINT GAME_WIDTH =  1200;               // width of game in pixels
+const UINT GAME_HEIGHT = 800;               // height of game in pixels
 
 const float GROUND_HEIGHT = 160;
  
