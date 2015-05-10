@@ -18,13 +18,20 @@
 const char BACKGROUND_IMAGE[] = "pictures\\background.png";
 const char MARIO_IMAGE[]	= "pictures\\RedHeadBoy.png"; 
 const char DARK_MARIO_IMAGE[] = "pictures\\DarkMario_2048x2048.png";
+const char GROUND_IMAGE[] = "pictures\\ground.png";
+const char GROUND1_IMAGE[] = "pictures\\ground1.png";
+const char LAVA_IMAGE[] = "pictures\\lava.png";
+const char SPIKE_IMAGE[] = "pictures\\spike.png";
+const char AIR_GROUND1_IMAGE[] = "pictures\\airground1.png";
+const char AIR_GROUND2_IMAGE[] = "pictures\\airground2.png";
+const char AIR_GROUND3_IMAGE[] = "pictures\\airground3.png";
 
 // window
 const char CLASS_NAME[] = "MarioGame";
 const char GAME_TITLE[] = "MarioGame";
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  1200;               // width of game in pixels
-const UINT GAME_HEIGHT = 800;               // height of game in pixels
+const UINT GAME_WIDTH =  800;               // width of game in pixels
+const UINT GAME_HEIGHT = 600;               // height of game in pixels
 
 const float GROUND_HEIGHT = 160;
  

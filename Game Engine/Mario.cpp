@@ -72,7 +72,7 @@ bool Mario::initialize(Game *gamePtr, int width, int height, int ncols,
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void Mario::update(float frameTime, Background *background)
+void Mario::update(float frameTime)
 {
 	Entity::update(frameTime);
 
@@ -137,7 +137,7 @@ void Mario::update(float frameTime, Background *background)
 	{
 		if (spriteData.y == GAME_HEIGHT - backgroundNS::GROUND_HEIGHT - marioNS::HEIGHT)
 		{
-			velocity.y = -3 * marioNS::SPEED;
+			velocity.y = -6 * marioNS::SPEED;
 		}
 	}
 	velocity.y += frameTime * 3 * GRAVITY;

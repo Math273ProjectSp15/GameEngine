@@ -6,6 +6,7 @@
 #include "image.h"
 #include "Mario.h"
 #include "background.h"
+#include <vector>
 
 class MarioGame : public Game
 {
@@ -30,11 +31,22 @@ private:
 	// game items
 	TextureManager backgroundTexture_; // background texture
 	TextureManager marioTexture_;     // mario texture
-	
+	TextureManager groundTexture_;
+	TextureManager ground1Texture_;
+	TextureManager lavaTexture_;
+	TextureManager spikeTexture_;
+	TextureManager airground1Texture_;
+	TextureManager airground2Texture_;
+	TextureManager airground3Texture_;
+
 	Background Background_;
 
 	Mario mario_;     // mario
 	Image background_;// background Image
 
+	std::vector <Entity> ground_;
+	std::vector <Entity> airground_;
+	Entity lava_;
+	Entity spike_;
 };
 

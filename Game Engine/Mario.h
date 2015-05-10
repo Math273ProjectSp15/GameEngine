@@ -82,7 +82,7 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 
 	// inherited member functions
-	void update(float frameTime, Background *background);
+	void update(float frameTime);
 	
 	void setState(marioNS::State state);
 	marioNS::State getState();
